@@ -1,7 +1,8 @@
 from collections import defaultdict
 import random
 import time
-filename = "frank10.txt"
+
+filename = "1984.txt" #"frank10.txt"
 
 f = open(filename, 'r')
 
@@ -59,7 +60,7 @@ def makeTweet():
     print " ".join(tweet)
 
 
-for i in range(0,3):
+for i in range(0,20):
     makeTweet()
     print "\n"
 
