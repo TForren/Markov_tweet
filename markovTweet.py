@@ -37,17 +37,23 @@ for line in f:
             markovMatrix[first][second] = 1
         i += 1
 
-tweet = [random.choice(starters)]
-for i in range(0,280):
 
-    if markovMatrix.get(tweet[i]) == None:
-        tweet += "."
-        tweet += [random.choice(starters)]
-        break
-    possible = markovMatrix.get(tweet[i]).keys()
-    nextWord = possible[random.randint(0,len(possible)-1)]
-    tweet += [nextWord]
-    if nextWord in enders:
-        break
+def makeTweet():
+    tweet = [random.choice(starters)]
+    for i in range(0,280):
 
-print " ".join(tweet)
+        if markovMatrix.get(tweet[i]) == None:
+            tweet += [random.choice(enders)]
+            break
+        possible = markovMatrix.get(tweet[i]).keys()
+        nextWord = possible[random.randint(0,len(possible)-1)]
+        tweet += [nextWord]
+        if nextWord in enders:
+            break
+    print " ".join(tweet)
+
+
+for i in range(0,10):
+    makeTweet()
+    print "\n"
+
