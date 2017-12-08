@@ -2,7 +2,7 @@
 
 Given some sample data, construct tweets (280 character messages) using markov chain
 
-
+http://setosa.io/ev/markov-chains/
 
 
 Exceptionally great tweets:

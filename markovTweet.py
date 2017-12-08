@@ -37,6 +37,13 @@ for line in f:
             markovMatrix[first][second] = 1
         i += 1
 
+#given a 1D dictionary, pick one key weighted random based on the values
+def weightedChoice(dict):
+    pool = []
+    for key in dict.keys():
+        for i in range(0,dict[key]):
+            pool += [key]
+    return random.choice(pool)
 
 def makeTweet():
     tweet = [random.choice(starters)]
@@ -45,15 +52,14 @@ def makeTweet():
         if markovMatrix.get(tweet[i]) == None:
             tweet += [random.choice(enders)]
             break
-        possible = markovMatrix.get(tweet[i]).keys()
-        nextWord = possible[random.randint(0,len(possible)-1)]
+        nextWord = weightedChoice(markovMatrix.get(tweet[i]))
         tweet += [nextWord]
         if nextWord in enders:
             break
     print " ".join(tweet)
 
 
-for i in range(0,10):
+for i in range(0,3):
     makeTweet()
     print "\n"
 
