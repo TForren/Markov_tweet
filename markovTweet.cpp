@@ -17,55 +17,66 @@ void collectSampleData(string fileName)
 	ifstream file;
 	file.open(fileName.c_str());
 	string word;
-	string first,second;
+	string firstWord,secondWord;
 	char wordEnding;
 	int i = 0;
-	
-	while(file >> word)
-	{
+	int endOfFile = 0;
+	while(!endOfFile) 
+	{ /*
+		printf("%s\n",file.get());
 		if (i == 0) 
 		{
-			first = word;
+			firstWord = word;
 			i = 1;
 		} 
 		else 
 		{
-			second = word;
+			secondWord = word;
 			i = 0;
 		}
+		*/
 		
-		char firstWordEnding = first[first.size() -1];
-		char secondWordEnding = second[second.size() -1];
+		
+		file >> firstWord;
+		file >> secondWord;
+		
+		
+		char firstWordEnding = firstWord[firstWord.size() -1];
+		char secondWordEnding = secondWord[secondWord.size() -1];
 		if(firstWordEnding == '.' || firstWordEnding == ',' || firstWordEnding == '?' || firstWordEnding == '!' ||
            firstWordEnding == ')' || firstWordEnding == ':' || firstWordEnding == ';' || firstWordEnding == '"')
         {
-			starters.push_back(second);
-			enders.push_back(first);
+			starters.push_back(secondWord);
+			enders.push_back(firstWord);
 		}
 		else
 		{
 			if (secondWordEnding == '.' || secondWordEnding == ',' || secondWordEnding == '?' || secondWordEnding == '!' ||
            secondWordEnding == ')' || secondWordEnding == ':' || secondWordEnding == ';' || secondWordEnding == '"')
 		   {
-			   enders.push_back(second);
+			   enders.push_back(secondWord);
 		   }
 		}
 		
 		//if first in markovMatrix.keys();
-		if (markovMatrix.find(first) != markovMatrix.end())
+		printf("checking for %s\n",firstWord.c_str());
+		if (markovMatrix.find(firstWord) != markovMatrix.end())
 		{
-			if (markovMatrix.find(first).find(second) != markovMatrix.end())
+			printf("checking for %s\n",secondWord.c_str());
+			if (markovMatrix.find(firstWord)->second.find(secondWord)->first != "")
 			{
-				markovMatrix.at(first).at(second) += 1;
+				printf("No second. inserting %s\n",secondWord.c_str());
+				markovMatrix[firstWord][secondWord] += 1;
 			} 
 			else
 			{
-				markovMatrix.at(first).at(second) == 1;
+				markovMatrix[firstWord][secondWord] = 1;
 			}
 		}
 		else
 		{
-			markovMatrix.at(first).at(second) == 1;
+			printf("No first. Inserting pair %s\n",firstWord.c_str());
+			markovMatrix[firstWord][secondWord] = 1;
 		}
 		
 	}
